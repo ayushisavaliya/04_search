@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import SearchBar from './Components/SearchBar';
+import Table from './Components/Table';
 
-function App() {
+const App = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+
+  const data = [
+    { id: 1, name: "ayushi", email: "ayushi@example.com", age: 25 },
+    { id: 2, name: "rucha", email: "rucha@example.com", age: 30 },
+    { id: 3, name: "nensi", email: "nensi@example.com", age: 35 },
+    { id: 4, name: "riddhi", email: "riddhi@example.com", age: 28 },
+  ];
+
+  const filteredData = data.filter(
+    (item) =>
+      item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: "20px" }}>
+      <h1>Table Filter Example</h1>
+    
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+    
+      <Table data={filteredData} />
     </div>
   );
-}
+};
 
 export default App;
